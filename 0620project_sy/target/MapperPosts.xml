@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.booksajo.dasibom.dao.PostsDAO">
+
+	<!-- 전체 게시글 목록 (페이징 포함) -->
+	<select id="getAllContents" resultType="PostsVO">
+		SELECT * FROM (
+		SELECT ROWNUM AS rnum, post_id, category, title, user_id,
+		post_date, image_path
+		FROM (
+		SELECT post_id, category, title, user_id, post_date, image_path
+		FROM community_table
+		ORDER BY
+		post_id DESC
+		)
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rnum &gt;= #{startRow}
+	</select>
+
+	<!-- 게시글 수 -->
+	<select id="getPostCount" resultType="int">
+		SELECT COUNT(*) FROM community_table
+	</select>
+
+	<!-- 특정 게시글의 댓글 수 -->
+	<select id="getCommentCountForPost" resultType="int">
+		SELECT COUNT(*)
+		FROM community_comment_table
+		WHERE post_id =
+		#{post_id}
+	</select>
+
+	<!-- 게시글 상세 조회 -->
+	<select id="getContent" resultType="PostsVO">
+		SELECT post_id, category, title, user_id, content AS post_contents,
+		post_date, image_path
+		FROM community_table
+		WHERE post_id = #{post_id}
+	</select>
+
+	<!-- 게시글 작성 -->
+	<insert id="insertPost">
+		INSERT INTO community_table (
+		post_id, category, title, content, user_id, post_date, image_path
+		)
+		VALUES (
+		post_seq.NEXTVAL,
+		#{category},
+		#{title},
+		#{content},
+		#{user_id},
+		SYSDATE,
+		#{image_path}
+		)
+	</insert>
+
+	<!-- 게시글 수정 -->
+	<update id="updatePost">
+		UPDATE community_table
+		SET category = #{category},
+		title = #{title},
+		user_id = #{user_id},
+		content =
+		#{content},
+		post_date =
+		SYSDATE,
+		image_path = #{image_path}
+		WHERE post_id = #{post_id}
+	</update>
+
+	<!-- 게시글 삭제 -->
+	<delete id="deletePost">
+		DELETE FROM community_table
+		WHERE post_id = #{post_id}
+	</delete>
+
+	<!-- 게시글 목록 + 댓글 수 -->
+	<select id="getAllComments" resultType="PostsVO">
+		SELECT
+		c.post_id,
+		c.category,
+		c.title,
+		c.user_id,
+		c.post_date,
+		c.image_path,
+		(
+		SELECT COUNT(*)
+		FROM community_comment_table com
+		WHERE com.post_id = c.post_id
+		) AS commentCount
+		FROM community_table c
+		ORDER BY c.post_date DESC
+	</select>
+
+	<select id="findPostsByKeyword" parameterType="string" resultType="PostsVO">
+		SELECT *
+		FROM community_table
+		WHERE title LIKE
+		#{keyword}
+		ORDER BY post_id DESC
+	</select>
+
+	<select id="getSearchPostCount" resultType="int">
+		SELECT COUNT(*)
+		FROM community_table
+		WHERE title LIKE #{keyword} OR
+		content LIKE #{keyword}
+	</select>
+
+	<select id="searchPostsByKeywordPaged" parameterType="map" resultType="PostsVO">
+		SELECT * FROM (
+		SELECT ROWNUM AS rn, a.*
+		FROM (
+		SELECT * FROM community_table
+		WHERE title LIKE '%' || #{keyword} || '%'
+		OR content LIKE '%' || #{keyword} || '%'
+		ORDER BY post_date DESC
+		) a
+		WHERE ROWNUM &lt;= #{endIndex}
+		)
+		WHERE rn &gt; #{startIndex}
+	</select>
+
+</mapper>
+ 

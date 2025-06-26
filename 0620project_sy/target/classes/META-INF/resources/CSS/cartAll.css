@@ -1,0 +1,167 @@
+/* ✅ 본문 전체 감싸는 wrapper */
+/* 본문 확대는 cartAll.jsp 에서만 */
+.cart-page body {
+	font-family: Arial, sans-serif;
+	text-align: center;
+	margin: 20px;
+}
+
+.cart-page h1 {
+	text-align: left;
+	margin-left: 10px;
+	font-size: 28px;
+}
+
+.cart-page table {
+	width: 90%;
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+
+.cart-page th, .cart-page td {
+	border: 1px solid #ccc;
+	padding: 10px;
+	text-align: center;
+}
+
+.cart-page p {
+	font-size: 16px;
+}
+
+.cart-page .original-price {
+	text-decoration: line-through;
+	color: #888;
+	font-size: 14px;
+	margin-right: 6px;
+}
+
+.cart-page .discounted-price {
+	color: #e60039;
+	font-weight: bold;
+	font-size: 16.8px;
+}
+
+.cart-page .cart-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	width: 90%;
+	margin: 30px auto;
+	gap: 30px;
+}
+
+.cart-page .cart-items {
+	flex: 3;
+}
+
+.cart-page .summary-box {
+	flex: 1;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 20px;
+	background-color: #f9f9f9;
+	font-size: 16px;
+}
+
+.cart-page .price-line {
+	display: flex;
+	justify-content: space-between;
+	margin: 8px 0;
+}
+
+.cart-page .final-line {
+	display: flex;
+	justify-content: space-between;
+	font-size: 18px;
+	font-weight: bold;
+	margin-top: 15px;
+}
+
+.cart-page .divider {
+	border-top: 1px dashed #ccc;
+	margin: 10px 0;
+}
+
+.cart-page .cart-item-card {
+	display: flex;
+	align-items: flex-start;
+	gap: 20px;
+	border: 1px solid #ddd;
+	padding: 15px;
+	border-radius: 10px;
+	margin: 20px 0 0 0;
+	background-color: #fff;
+	font-size: 16px;
+}
+
+.cart-page .cart-item-card input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+.cart-page .book-image {
+	width: 150px;
+	height: auto;
+	border-radius: 6px;
+}
+
+.cart-page .book-info {
+	flex: 1;
+	text-align: left;
+	font-size: 16px;
+}
+
+.cart-page .book-info p {
+	margin: 8px 0;
+	display: flex;
+	align-items: center;
+}
+
+.cart-page .price-wrapper {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+/* 수량 버튼 */
+.cart-page .book-info .decrease-btn, .cart-page .book-info .increase-btn
+	{
+	margin: 0 8px;
+	padding: 5px 10px;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: #ffc0cb;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.cart-page .book-info .decrease-btn:hover, .cart-page .book-info .increase-btn:hover
+	{
+	background-color: #ff8fa3;
+}
+
+/* 전체선택 체크박스 */
+.cart-page #selectAll {
+	transform: scale(1.5);
+	margin-right: 8px;
+}
+
+/* 추가 범위 한정 */
+.cart-page .cart-item-card {
+	font-size: 16px;
+}
+
+.cart-page .cart-item-card input[type="checkbox"] {
+	transform: scale(1.5);
+}
+
+.cart-page .wishlist_item img {
+  width: 120px;        /* 원하는 너비 */
+  height: 160px;       /* 원하는 높이 */
+  object-fit: cover;   /* 이미지 비율 유지하며 박스 채우기 */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+}

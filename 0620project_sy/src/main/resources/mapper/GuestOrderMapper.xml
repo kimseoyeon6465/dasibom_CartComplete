@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+		namespace="com.booksajo.dasibom.service.dao.GuestOrderDAO">
+
+		<select id="getGuestOrderById" parameterType="int"
+				resultType="com.booksajo.dasibom.vo.GuestOrderVO">
+				SELECT *
+				FROM guest_order_table
+				WHERE order_id = #{orderId}
+		</select>
+
+		<!-- 🔹 비회원 주문 목록: 이메일 기준 조회 -->
+		<select id="getGuestOrdersByEmail" parameterType="string"
+				resultType="com.booksajo.dasibom.vo.GuestOrderVO">
+				SELECT *
+				FROM guest_order_table
+				WHERE email = #{email}
+				ORDER
+				BY order_date DESC
+		</select>
+
+		<select id="getGuestOrderDetailsByOrderId" parameterType="int"
+				resultType="com.booksajo.dasibom.vo.GuestOrderDetailVO">
+				SELECT d.order_id, d.isbn, d.count, d.price, d.order_status,
+				b.title, b.image_path AS imagePath
+				FROM guest_order_detail_table d
+				JOIN book_table b ON d.isbn = b.isbn
+				WHERE d.order_id = #{orderId}
+		</select>
+
+
+		<insert id="insertGuestOrder"
+				parameterType="com.booksajo.dasibom.vo.GuestOrderVO">
+
+				INSERT INTO guest_order_table (
+				order_id, order_date, receiver,
+				address, request, tel, sum_price, email
+				) VALUES (
+				#{orderId}, SYSDATE,
+				#{receiver}, #{address}, #{request},
+				#{tel}, #{sumPrice}, #{email}
+				)
+		</insert>
+
+
+		<!-- 🔹 비회원 주문 상세 삽입 -->
+		<insert id="insertGuestOrderDetail"
+				parameterType="com.booksajo.dasibom.vo.GuestOrderDetailVO">
+				INSERT INTO guest_order_detail_table (
+				order_id, isbn,
+				count, price, order_status
+				) VALUES (
+				#{orderId}, #{isbn}, #{count},
+				#{price}, '결제완료'
+				)
+		</insert>
+		<!-- 🔹 시퀀스 직접 조회 -->
+		<select id="getGuestOrderSeqNextVal" resultType="int">
+				SELECT
+				guest_order_seq.NEXTVAL FROM dual
+		</select>
+
+</mapper>

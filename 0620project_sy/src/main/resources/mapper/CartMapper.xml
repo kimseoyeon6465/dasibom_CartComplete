@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.booksajo.dasibom.service.dao.CartDAO">
+
+	<!-- 모든 유저의 장바구니 조회 -->
+	<select id="getAllCart"
+		resultType="com.booksajo.dasibom.vo.CartVO">
+		SELECT user_id, isbn,
+		added_date, image_path, list_type,
+		count
+		FROM wishlist_table
+		ORDER BY
+		user_id
+	</select>
+
+	<!-- 로그인한 유저의 장바구니를 추가한 날짜 기준으로 정렬해서 조회 -->
+	<select id="getCartByUserId" parameterType="string"
+		resultType="com.booksajo.dasibom.vo.CartVO">
+		SELECT
+		w.isbn,
+		w.image_path,
+		w.count,
+		b.title,
+		b.price
+		FROM
+		wishlist_table w
+		JOIN book_table b ON w.isbn = b.isbn
+		WHERE w.user_id
+		=
+		#{userId, jdbcType=VARCHAR}
+		AND w.list_type = 'cart'
+		ORDER BY
+		w.added_date DESC
+	</select>
+
+
+	<insert id="insertCart" parameterType="CartVO">
+		INSERT INTO
+		wishlist_table
+		(user_id, isbn, count, list_type, added_date,
+		image_path)
+		VALUES
+		(#{userId}, #{isbn}, #{count}, #{listType},
+		SYSDATE, #{imagePath})
+	</insert>
+
+	<update id="updateCart" parameterType="CartVO">
+		UPDATE wishlist_table
+		SET
+		count = #{count}
+		WHERE user_id = #{userId}
+		AND isbn = #{isbn}
+		AND
+		list_type = 'cart'
+	</update>
+
+
+	<delete id="deleteCart" parameterType="map">
+		DELETE FROM wishlist_table
+		WHERE user_id = #{userId,
+		jdbcType=VARCHAR}
+		AND list_type = 'cart'
+		AND isbn IN
+		<foreach collection="isbnList" item="isbn" open="("
+			separator="," close=")">
+			#{isbn}
+		</foreach>
+	</delete>
+
+
+
+	<update id="modifyCount"
+		parameterType="com.booksajo.dasibom.vo.CartVO">
+		UPDATE wishlist_table
+		SET count = #{count}
+		WHERE user_id
+		=
+		#{userId, jdbcType=VARCHAR}
+		AND isbn = #{isbn}
+		AND list_type = 'cart'
+	</update>
+
+	<delete id="removeCartItemsAfterOrder" parameterType="map">
+		DELETE FROM wishlist_table
+		WHERE user_id = #{userId}
+		AND list_type =
+		'cart'
+		AND isbn IN
+		<foreach item="isbn" collection="isbnList" open="("
+			separator="," close=")">
+			#{isbn}
+		</foreach>
+	</delete>
+
+
+	<select id="getCartBookByUserIdAndIsbn" parameterType="map"
+		resultType="com.booksajo.dasibom.vo.CartVO">
+		SELECT
+		w.isbn,
+		w.user_id,
+		w.count,
+		w.list_type,
+		b.title,
+		b.image_path,
+		b.price
+		FROM wishlist_table w
+		JOIN book_table b ON w.isbn
+		=
+		b.isbn
+		WHERE w.user_id = #{userId, jdbcType=VARCHAR}
+		AND w.list_type
+		=
+		'cart'
+		AND w.isbn = #{isbn}
+	</select>
+
+	<!-- ✅ 유저 굿즈 장바구니 조회 -->
+	<select id="getUserGoodsCartByUserId" parameterType="string"
+		resultType="com.booksajo.dasibom.vo.GoodsVO">
+		SELECT
+		gw.user_id,
+		gw.goods_id,
+		g.goods_name,
+		g.category,
+		g.price,
+		gw.image_path,
+		gw.list_type,
+		gw.count,
+		gw.added_date
+		FROM
+		goods_wishlist_table gw
+		JOIN
+		goods_table g ON gw.goods_id = g.goods_id
+		WHERE
+		gw.user_id = #{userId}
+		AND
+		gw.list_type = 'cart'
+		ORDER BY
+		gw.added_date DESC
+	</select>
+
+	<!-- CartMapper.xml -->
+	<delete id="deleteCartGoodsItems">
+		DELETE FROM goods_wishlist_table
+		WHERE user_id = #{userId}
+		AND
+		goods_id
+		IN
+		<foreach collection="goodsIdList" item="gid" open="("
+			separator="," close=")">
+			#{gid}
+		</foreach>
+		AND list_type = 'cart'
+	</delete>
+
+
+<select id="getCartGoodsByUserIdAndGoodsId" parameterType="map" resultType="com.booksajo.dasibom.vo.CartVO">
+	SELECT 
+		g.goods_id AS goods_Id,
+		g.goods_name,
+		g.image_path,
+		w.user_id,
+		w.count,
+		w.list_type
+	FROM goods_wishlist_table w
+	JOIN goods_table g ON w.goods_id = g.goods_id
+	WHERE w.user_id = #{userId}
+	AND w.goods_id = #{goodsId}
+	AND w.list_type = 'cart'
+</select>
+
+	<delete id="deleteGoods" parameterType="map">
+		DELETE FROM goods_wishlist_table
+		WHERE user_id = #{userId}
+		AND list_type
+		= 'cart'
+		AND goods_id IN
+		<foreach collection="goodsIdList" item="gid" open="("
+			separator="," close=")">
+			#{gid}
+		</foreach>
+	</delete>
+
+
+</mapper>

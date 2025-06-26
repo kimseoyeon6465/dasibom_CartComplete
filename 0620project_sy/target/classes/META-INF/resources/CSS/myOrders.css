@@ -1,0 +1,73 @@
+body {
+	font-family: Arial, sans-serif;
+	text-align: center;
+}
+
+.container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+table {
+	width: 90%;
+	margin: 0 auto 20px auto;
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+
+/* �윍� 湲곕낯 踰꾪듉 (�븞 ��) */
+a.button {
+	display: inline-block;
+	padding: 15px 30px;
+	margin: 10px;
+	font-size: 16px;
+	background-color: #ffb6c1;
+	color: white;
+	text-decoration: none;
+	border-radius: 10px;
+	transition: background-color 0.3s;
+}
+
+a.button:hover {
+	background-color: #ff8fa3;
+}
+
+.button.disabled {
+	background-color: #ccc;
+	color: #666;
+	pointer-events: none;
+	cursor: not-allowed;
+}
+
+/* �쐟 �븨�겕 踰꾪듉 (�솢�꽦�솕 �긽�깭) */
+.button-pink {
+	display: inline-block;
+	width: 90px;
+	padding: 8px 12px;
+	margin: 4px 0;
+	font-size: 14px;
+	border: 2px solid #ff69b4;
+	background-color: white;
+	color: #ff69b4;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.button-pink:hover {
+	background-color: #ff69b4;
+	color: white;
+}
+
+/* �쐟 鍮꾪솢�꽦�솕 踰꾪듉 (�뿰�쉶�깋) */
+.button-pink.disabled {
+	border: 2px solid #ccc;
+	color: #aaa;
+	background-color: #f0f0f0;
+	cursor: not-allowed;
+	pointer-events: none;
+}

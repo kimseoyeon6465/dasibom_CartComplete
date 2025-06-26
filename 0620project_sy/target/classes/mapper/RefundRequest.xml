@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.booksajo.dasibom.service.dao.RefundRequestDAO">
+
+	<!-- 🔁 주문 상세 조회 -->
+	<select id="selectOrderDetail" resultType="com.booksajo.dasibom.vo.OrderDetailVO">
+		SELECT order_id, isbn, count, refund_count, price, order_status
+		FROM user_order_detail_table
+		WHERE order_id = #{orderId}
+		AND isbn = #{isbn}
+	</select>
+
+	<!-- 🔁 환불 처리: 환불 수량 증가 + 상태 변경 -->
+	<update id="updateRefund" parameterType="com.booksajo.dasibom.vo.RefundRequestVO">
+		UPDATE user_order_detail_table
+		SET 
+			refund_count = refund_count + #{refundCount},
+			order_status = #{orderStatus}
+		WHERE 
+			order_id = #{orderId}
+			AND isbn = #{isbn}
+	</update>
+
+
+
+</mapper>

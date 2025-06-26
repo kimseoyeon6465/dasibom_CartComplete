@@ -1,0 +1,129 @@
+/* 레이아웃 전체 감싸는 wrapper */
+.layout-wrapper {
+	display: flex;
+	align-items: flex-start;
+	background-color: #f9f9f9;
+	min-height: 100vh;
+	position: relative; /* 추가: 사이드바 위치 기준 */
+}
+
+
+/* 메인 전체 레이아웃 */
+.main-container {
+	flex: 1;
+	padding: 30px;
+	background-color: #fff;
+	border-radius: 10px;
+	margin: 20px;
+	margin-left: 240px; /* 사이드바 겹침방지 */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+	font-weight: 400;
+	color: #333;
+}
+
+/* 상단 폼 영역 */
+.upper-form {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 30px;
+}
+
+/* 테이블 공통 스타일 */
+#userInfoUpdateTable1, #userInfoUpdateTable2 {
+	border-collapse: collapse;
+	width: 100%;
+	max-width: 700px;
+}
+
+#userInfoUpdateTable1 td, #userInfoUpdateTable2 td {
+	padding: 12px 15px;
+	border: 1px solid #eee;
+	vertical-align: middle;
+}
+
+/* 입력 필드 스타일 */
+input[type="text"] {
+	display: inline-block;
+	width: 100%; /* 또는 90% */
+	box-sizing: border-box;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	width: 90%;
+	font-size: 14px;
+}
+
+/* 버튼 td 내부: 수평 정렬 + 줄바꿈 방지 */
+#userInfoUpdateTable1 td[id$="-btns"], #userInfoUpdateTable2 td[id$="-btns"]
+	{
+	white-space: nowrap;
+}
+
+/* 버튼 안의 글자 줄바꿈 방지 + 수평정렬 보장 */
+button {
+	display: inline-block;
+	white-space: nowrap; /* 줄바꿈 방지 */
+	padding: 6px 12px;
+	margin-right: 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF77AA;
+	color: white;
+	font-size: 13px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background-color: #F81C8A;
+}
+
+/* 이미지 영역 */
+.img-container {
+	margin-left: 30px;
+	text-align: center;
+}
+
+.img-container img {
+	border-radius: 15%;
+	border: 2px solid #FF77AA;
+	object-fit: cover;
+}
+
+.img-container button {
+	margin-top: 10px;
+	background-color: #F81C8A;
+}
+
+/* 하단 폼 영역 */
+.lower-form {
+	margin-top: 30px;
+}
+
+/* 포커스 시 인풋 강조 */
+input[type="text"]:focus {
+	outline: none;
+	border-color: #F81C8A;
+	box-shadow: 0 0 4px rgba(248, 28, 138, 0.3);
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 6px 12px;
+    background-color: #eee;
+    text-decoration: none;
+    border-radius: 4px;
+    color: black;
+}
+
+.pagination a.active-page {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}

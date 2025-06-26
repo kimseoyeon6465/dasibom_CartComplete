@@ -1,0 +1,133 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Paperlogy';
+	src: url('../fonts/Paperlogy-4Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	font-family: 'Paperlogy', 'Noto Sans KR', sans-serif;
+	background-color: #ffffff;
+	margin: 0;
+	padding: 0;
+}
+
+.content {
+	max-width: 800px;
+	margin: 50px auto;
+	background-color: #fff;
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+h1 {
+	text-align: center;
+	font-size: 26px;
+	color: #d63384;
+	margin-bottom: 20px;
+}
+
+hr {
+	border: none;
+	height: 1px;
+	background-color: #e0e0e0;
+	margin: 20px 0;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+td {
+	padding: 10px 0;
+}
+
+textarea, input[type=text] {
+	width: 100%;
+	padding: 10px 12px;
+	font-size: 14px;
+	border: 1px solid #ffcde1;
+	border-radius: 6px;
+	box-sizing: border-box;
+	background-color: #fff0f6;
+	color: #333;
+}
+
+.WriteForm-User_Id {
+width: 100%;
+	padding: 10px 12px;
+	font-size: 14px;
+	border: 1px solid #ffcde1;
+	border-radius: 6px;
+	box-sizing: border-box;
+	background-color: #fff0f6;
+	color: #333;
+	padding: 10px 0;
+}
+
+textarea:focus, input[type=text]:focus {
+	outline: none;
+	border-color: #ff69b4;
+	background-color: #fff;
+}
+
+textarea {
+	resize: none;
+}
+
+input[type=button] {
+	background-color: #ff4081;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	font-size: 14px;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+input[type=button]:hover {
+	background-color: #e0316c;
+}
+
+.button-row {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30px;
+}
+
+td select {
+	width: 100%;
+	padding: 10px 12px;
+	font-size: 14px;
+	border: 1px solid #ffcde1;
+	border-radius: 6px;
+	box-sizing: border-box;
+	background-color: #fff0f6;
+	color: #333;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background-image:
+		url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%23d63384' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 10px center;
+	background-size: 16px;
+}
+
+td 	select:focus {
+	outline: none;
+	border-color: #ff69b4;
+	background-color: #fff;
+}
+
+option {
+	font-size: 14px;
+	color: #d63384;
+	background-color: #fff0f6;
+}

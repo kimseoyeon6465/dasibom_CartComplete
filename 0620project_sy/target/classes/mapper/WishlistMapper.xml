@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.booksajo.dasibom.service.dao.WishlistDAO">
+
+	<!-- ✅ 로그인한 유저의 찜리스트 조회 -->
+	<select id="getWishlistByUserId" parameterType="string"
+		resultType="wishlistVO">
+		SELECT
+		w.isbn,
+		w.image_path AS imagePath,
+		b.title
+		FROM
+		wishlist_table w
+		JOIN book_table b ON w.isbn = b.isbn
+		WHERE w.user_id
+		=
+		#{userId,
+		jdbcType=VARCHAR}
+		AND w.list_type = 'wishlist'
+		ORDER BY
+		w.added_date
+		DESC
+	</select>
+
+	<!-- ✅ 개별 도서 정보 조회 (중복 확인용) -->
+	<select id="getWishlist"
+		parameterType="com.booksajo.dasibom.vo.WishlistVO"
+		resultType="wishlistVO">
+		SELECT *
+		FROM wishlist_table
+		WHERE user_id = #{userId,
+		jdbcType=VARCHAR}
+		AND isbn = #{isbn}
+		AND list_type = #{listType}
+	</select>
+
+	<!-- ✅ 보관함에 새로 추가 (count는 NULL로 명시) -->
+	<insert id="insertWishlist"
+		parameterType="com.booksajo.dasibom.vo.WishlistVO">
+		INSERT INTO wishlist_table (user_id, isbn, added_date,
+		image_path,
+		list_type, count)
+		VALUES (#{userId, jdbcType=VARCHAR},
+		#{isbn}, SYSDATE, #{imagePath, jdbcType=VARCHAR},
+		#{listType}, NULL)
+	</insert>
+
+	<!-- ✅ 보관함 도서 정보 수정 -->
+	<update id="updateWishlist"
+		parameterType="com.booksajo.dasibom.vo.WishlistVO">
+		UPDATE wishlist_table
+		SET image_path = #{imagePath},
+		added_date = SYSDATE
+		WHERE user_id = #{userId, jdbcType=VARCHAR}
+		AND
+		isbn = #{isbn}
+		AND list_type = #{listType}
+	</update>
+
+	<!-- ✅ 보관함/장바구니 항목 삭제 -->
+	<delete id="deleteWishlist" parameterType="map">
+		DELETE FROM wishlist_table
+		WHERE user_id = #{userId,
+		jdbcType=VARCHAR}
+		AND isbn IN
+		<foreach collection="isbnList" item="isbn" open="("
+			separator="," close=")">
+			#{isbn}
+		</foreach>
+		AND list_type = 'wishlist'
+	</delete>
+
+	<!-- ✅ 장바구니 중복 체크 -->
+	<select id="existsInCart" resultType="int"
+		parameterType="com.booksajo.dasibom.vo.WishlistVO">
+		SELECT COUNT(*)
+		FROM wishlist_table
+		WHERE user_id =
+		#{userId, jdbcType=VARCHAR}
+		AND isbn = #{isbn}
+		AND list_type = 'cart'
+	</select>
+
+	<!-- ✅ 장바구니 수량 1 증가 -->
+	<update id="updateCartCount"
+		parameterType="com.booksajo.dasibom.vo.WishlistVO">
+		UPDATE wishlist_table
+		SET count = count + 1
+		WHERE
+		user_id =
+		#{userId, jdbcType=VARCHAR}
+		AND isbn = #{isbn}
+		AND list_type
+		= 'cart'
+	</update>
+
+	<!-- ✅ 장바구니에 새로 추가 -->
+	<insert id="insertToCart"
+		parameterType="com.booksajo.dasibom.vo.WishlistVO">
+		INSERT INTO wishlist_table (user_id, isbn, added_date,
+		image_path,
+		list_type, count)
+		VALUES (#{userId, jdbcType=VARCHAR},
+		#{isbn}, SYSDATE, #{imagePath}, 'cart',
+		1)
+	</insert>
+
+	<select id="getWishlistByPage" parameterType="map"
+		resultType="com.booksajo.dasibom.vo.WishlistVO">
+		SELECT *
+		FROM (
+		SELECT a.*, ROWNUM rn
+		FROM (
+		SELECT
+		w.isbn,
+		w.user_id,
+		w.added_date,
+		w.image_path AS imagePath,
+		w.list_type,
+		w.count,
+		b.title,
+		b.price
+		FROM wishlist_table w
+		JOIN book_table b ON w.isbn =
+		b.isbn
+		WHERE w.user_id = #{userId}
+		AND w.list_type = 'wishlist'
+		ORDER BY
+		w.isbn DESC
+		) a
+		WHERE ROWNUM &lt;= #{end}
+		)
+		WHERE rn &gt;= #{start}
+	</select>
+
+
+
+
+	<select id="getWishlistCount" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		wishlist_table
+		WHERE user_id = #{userId} AND list_type = 'wishlist'
+	</select>
+
+	<select id="getWishlistBookByUserIdAndIsbn" parameterType="map"
+		resultType="WishlistVO">
+		SELECT * FROM wishlist_table
+		WHERE user_id = #{userId}
+		AND
+		isbn = #{isbn}
+		AND list_type = #{listType}
+
+	</select>
+
+	<select id="checkGoodsWishlistExists" resultType="int">
+		SELECT COUNT(*) FROM goods_wishlist_table
+		WHERE user_id = #{userId} AND goods_id = #{goodsId}
+	</select>
+
+	<insert id="insertGoodsWishlist">
+		INSERT INTO goods_wishlist_table (user_id, goods_id, reg_date)
+		VALUES (#{userId}, #{goodsId}, SYSDATE)
+	</insert>
+
+	<insert id="insertGoodsToWishlist">
+		INSERT INTO goods_wishlist_table (
+		user_id,
+		goods_id,
+		image_path,
+		count,
+		list_type,
+		added_date
+		)
+		VALUES (
+		#{userId},
+		#{goods_Id},
+		#{imagePath},
+		NULL,
+		#{listType},
+		SYSDATE
+		)
+	</insert>
+
+	<select id="checkGoodsExistsInWishlist" resultType="int">
+		SELECT COUNT(*) FROM goods_wishlist_table
+		WHERE user_id = #{userId}
+		AND goods_id = #{goodsId}
+		AND list_type = 'wishlist'
+	</select>
+
+	<select id="checkGoodsInCart" resultType="int">
+		SELECT COUNT(*) FROM goods_wishlist_table
+		WHERE user_id = #{userId}
+		AND goods_id = #{goodsId}
+		AND list_type = 'cart'
+	</select>
+
+	<update id="updateGoodsCountInCart">
+		UPDATE goods_wishlist_table
+		SET count = count + 1
+		WHERE user_id = #{userId}
+		AND goods_id = #{goodsId}
+		AND list_type = 'cart'
+	</update>
+
+
+	<select id="getGoodsWishlistByUserId" parameterType="string"
+		resultType="com.booksajo.dasibom.vo.CartVO">
+		SELECT
+		g.goods_id,
+		g.user_id,
+		g.image_path,
+		g.list_type,
+		gd.goods_name
+		FROM goods_wishlist_table g
+		JOIN goods_table gd ON g.goods_id = gd.goods_id
+		WHERE g.user_id = #{userId}
+		AND g.list_type = 'wishlist'
+	</select>
+
+
+	<select id="selectGoodsWishlistExists" resultType="int"
+		parameterType="map">
+		SELECT COUNT(*)
+		FROM goods_wishlist_table
+		WHERE user_id = #{userId}
+		AND goods_id = #{goodsId}
+		AND list_type = 'wishlist'
+	</select>
+
+	<delete id="deleteGoodsFromWishlist" parameterType="map">
+		DELETE FROM goods_wishlist_table
+		WHERE user_id = #{userId}
+		AND list_type = 'wishlist'
+		AND goods_id IN
+		<foreach item="id" collection="goodsIdList" open="("
+			separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+<insert id="insertGoodsToWishlistAsCart"
+    parameterType="com.booksajo.dasibom.vo.CartVO">
+    INSERT INTO goods_wishlist_table (
+        user_id,
+        goods_id,
+        image_path,
+        list_type,
+        added_date,
+        count
+    )
+    VALUES (
+        #{userId},
+        #{goodsId},
+        #{imagePath},
+        #{listType},
+        SYSDATE,
+        1
+    )
+</insert>
+
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booksajo.dasibom.service.dao.ReviewCommentDAO">
+
+    <resultMap id="commentResultMap" type="com.booksajo.dasibom.vo.ReviewCommentVO">
+        <id property="review_comment_Id" column="review_comment_Id"/>
+        <result property="review_Id" column="review_Id"/>
+        <result property="user_Id" column="user_Id"/>
+        <result property="review_comment_text" column="review_comment_text"/>
+        <result property="review_comment_date" column="review_comment_date"/>
+    </resultMap>
+
+    <select id="getCommentsByReviewId" resultMap="commentResultMap">
+        SELECT * FROM review_comment_table
+        WHERE review_id = #{review_Id}
+        ORDER BY review_comment_date ASC
+    </select>
+
+    <insert id="insertComment" parameterType="com.booksajo.dasibom.vo.ReviewCommentVO">
+        INSERT INTO review_comment_table (
+            review_comment_id, review_id, user_id, review_comment_text
+        ) VALUES (
+            review_comment_seq.nextval, #{review_Id}, #{user_Id}, #{review_comment_text}
+        )
+    </insert>
+
+    <update id="updateComment" parameterType="ReviewCommentVO">
+        UPDATE review_comment_table
+        SET review_comment_text = #{review_comment_text}
+        WHERE review_comment_id = #{review_comment_Id} AND user_id = #{user_Id}
+    </update>
+
+    <delete id="deleteComment" parameterType="ReviewCommentVO">
+        DELETE FROM review_comment_table
+        WHERE review_comment_id = #{review_comment_Id} AND user_id = #{user_Id}
+    </delete>
+    
+    <!-- 리뷰가 삭제되면 같이 삭제되게 -->
+    <delete id="deleteByReviewId" parameterType="int">
+	    DELETE FROM review_comment_table WHERE review_id = #{review_Id}
+	</delete>
+    
+    
+</mapper>

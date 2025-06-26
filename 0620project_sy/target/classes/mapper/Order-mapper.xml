@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.booksajo.dasibom.service.dao.MyOrderDAO">
+
+	<!-- 페이징 데이터 가져오기 (조건무관)  -->
+	<select id="getOrdersByUserId" parameterType="map"
+		resultType="com.booksajo.dasibom.vo.MyOrderVO">
+		SELECT * FROM (
+			SELECT rownum AS rn, a.*
+			FROM (
+				SELECT
+				o.order_id AS orderId,
+				o.order_date AS orderDate,
+				o.sum_price AS sumPrice,
+				d.isbn,
+				d.count,
+				d.price AS itemPrice,
+				d.order_status AS orderStatus,
+				b.title,
+				b.image_path AS imagePath
+				FROM user_order_table o
+				JOIN
+				order_detail_table d ON
+				o.order_id = d.order_id
+				JOIN book_table b
+				ON
+				d.isbn = b.isbn
+				WHERE
+				o.user_id = #{userId}
+				<if test="title != null and title != ''">
+					AND b.title LIKE #{title}
+				</if>
+				<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+				  AND o.order_date BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD')
+				                      AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+				</if>
+				ORDER BY o.order_date DESC
+			) a
+			WHERE rownum &lt;= #{limitValue}
+		)
+		WHERE rn &gt; #{offset}
+	</select>
+
+	<!-- 구매내역 페이지 개수 구하기 ++ 도서명 검색 조건 -->
+	<select id="countOrdersByUserId" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM user_order_table o
+		JOIN order_detail_table d ON
+		o.order_id = d.order_id
+		JOIN book_table b ON d.isbn = b.isbn
+		WHERE
+		o.user_id = #{userId}
+		<if test="title != null and title != ''">
+			AND b.title LIKE #{title}
+		</if>
+		<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+		  AND o.order_date BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD')
+		                      AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		</if>
+
+
+	</select>
+
+	<!-- (임시)order_id로 구매내역 검색 -->
+	<select id="getOrderByOrderId" parameterType="int"
+		resultType="com.booksajo.dasibom.vo.MyOrderVO">
+		SELECT
+		o.order_id AS orderId,
+		o.order_date AS orderDate,
+		o.sum_price AS
+		sumPrice,
+		d.isbn,
+		d.count,
+		d.price AS itemPrice,
+		d.order_status AS
+		orderStatus,
+		b.title,
+		b.image_path AS imagePath
+		FROM
+		user_order_table o
+		JOIN order_detail_table d ON
+		o.order_id = d.order_id
+		JOIN book_table b ON d.isbn = b.isbn
+		WHERE
+		o.order_id = #{orderId}
+	</select>
+	
+	
+
+
+</mapper>

@@ -1,0 +1,41 @@
+/* 전체 기본 폰트와 정렬 */
+body {
+	font-family: "Arial", sans-serif;
+	padding: 40px;
+	text-align: center;
+	background-color: #fffbe7;
+}
+
+/* 제목 스타일 */
+h1 {
+	font-size: 28px;
+	font-weight: bold;
+	color: #222;
+	margin-bottom: 40px;
+}
+
+/* 버튼 기본 스타일 */
+button {
+	background-color: #ffe812; /* 카카오페이 노랑 */
+	color: #000; /* 검정 글자 */
+	border: none;
+	padding: 14px 28px;
+	font-size: 16px;
+	font-weight: bold;
+	border-radius: 8px;
+	cursor: pointer;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	transition: all 0.2s ease;
+}
+
+/* 버튼 호버 효과 */
+button:hover {
+	background-color: #ffdf00;
+	transform: translateY(-2px);
+}
+
+/* 버튼 클릭 효과 */
+button:active {
+	transform: scale(0.98);
+	box-shadow: none;
+}

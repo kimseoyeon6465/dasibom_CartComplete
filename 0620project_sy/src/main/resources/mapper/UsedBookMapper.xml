@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booksajo.dasibom.service.dao.UsedBookDAO">
+
+    <!-- 게시물 총 개수 조회 -->
+    <select id="selectUsedBookCount" resultType="int">
+        SELECT COUNT(*) FROM used_book_table
+    </select>
+
+    <!-- 페이지별 게시물 조회 예시 -->
+    <select id="selectUsedBooksByPage" resultType="com.booksajo.dasibom.vo.UsedBookVO">
+        SELECT * FROM (
+            SELECT ROWNUM rn, a.* FROM (
+                SELECT * FROM used_book_table ORDER BY post_date DESC
+            ) a
+        )
+        WHERE rn BETWEEN #{startRow} AND #{endRow}
+    </select>
+    
+    <select id="selectAll" resultType="com.booksajo.dasibom.vo.UsedBookVO">
+        SELECT * FROM used_book_table ORDER BY post_id DESC
+    </select>
+
+    <select id="selectId" resultType="com.booksajo.dasibom.vo.UsedBookVO">
+        SELECT * FROM used_book_table WHERE post_id = #{post_Id}
+    </select>
+    
+    <select id="getNextPostId" resultType="int">
+        SELECT junggo_post_seq.nextval FROM dual
+    </select>
+
+    <insert id="insert" parameterType="com.booksajo.dasibom.vo.UsedBookVO" useGeneratedKeys="false" keyProperty="postId">
+    	INSERT INTO used_book_table (
+        	post_id, post_date, title, price, isbn, sale_status, image_path, sale_type, user_id, content
+    	)
+    	VALUES (
+        	junggo_post_seq.nextval,
+        	#{post_Date,jdbcType=TIMESTAMP},
+        	#{title,jdbcType=VARCHAR},
+        	#{price,jdbcType=NUMERIC},
+        	#{isbn,jdbcType=VARCHAR},
+        	#{sale_Status,jdbcType=VARCHAR},
+        	#{image_Path,jdbcType=VARCHAR},
+        	#{sale_Type,jdbcType=VARCHAR},
+        	#{user_Id,jdbcType=VARCHAR},
+        	#{content,jdbcType=CLOB}
+    	)
+	</insert>
+
+    <update id="update" parameterType="com.booksajo.dasibom.vo.UsedBookVO">
+        UPDATE used_book_table
+        SET title = #{title},
+            price = #{price},
+            isbn = #{isbn},
+            sale_status = #{sale_Status},
+            image_path = #{image_Path},
+            sale_type = #{saleType},
+            user_id = #{user_Id},
+            content = #{content}
+        WHERE post_id = #{post_Id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM used_book_table WHERE post_id = #{postId}
+    </delete>
+
+</mapper>

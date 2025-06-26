@@ -1,0 +1,188 @@
+@charset "UTF-8";
+
+#sakura-petals {
+  position: relative;   /* 기준이 되는 부모 */
+  overflow: hidden;     /* 꽃잎이 바깥으로 튀어나가지 않게 */
+}
+
+#sakura-petals canvas.sakura {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0; /* 필요시 조절 (header나 텍스트보다 뒤에 있게) */
+}
+
+.container {
+	overflow: hidden;
+}
+.bookimg {
+    float: left;
+    height: 150px; /* �넂�씠 怨좎젙 */
+    width: 100px;
+    margin-right: 20px;
+    object-fit: cover; /* �씠誘몄� 鍮꾩쑉 留욎텛湲� + �옒由� 諛⑹� */
+}
+
+.booktext {
+  float: left;
+}
+
+
+.best-container {
+  padding: 20px 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.best-text {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+  margin-left: -10px;  /* ← 왼쪽으로 삐져나오게 */
+  padding-left: 10px;  /* 안쪽 여백으로 내용 밀어주기 (균형) */
+}
+
+.underline {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;  /* 평범한 회색 밑줄 */
+  margin: 8px 0 20px 0;
+}
+
+.best-list-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.best-item {
+  width: 180px;
+  position: relative;
+  text-align: center;
+}
+
+.best-img {
+  width: 180px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.best-title {
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.number-badge {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: #FF77AA;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.event-container {
+  padding: 20px 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 제목 스타일 (best-text와 동일) */
+.event-text {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+  margin-left: -10px;
+  padding-left: 10px;
+}
+
+/* 동일한 밑줄 스타일 */
+.underline {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  margin: 8px 0 20px 0;
+}
+
+/* 이미지 배치용 flex 박스 */
+.event-list-fixed {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* ← 수정: 메인박스 맨 아래에 맞춰 정렬 */
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.event-box {
+  border: 2.5px solid #ccc;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.side-box {
+  width: 350px;
+  height: 220px;
+}
+
+.main-box {
+  width: 500px;
+  height: 300px;
+}
+
+.event-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 하단 미리보기 컨테이너 */
+.event-preview-container {
+  width: 65%; /* ⬅️ 양옆 너비 줄이기 */
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 30px;
+  border: 2.5px solid #ccc;  /* 보더 두께 및 색상 */
+  background-color: #fff0f5;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.preview-box {
+  width: 170px; /* ⬅️ 기존 170px → 줄임 */
+  height: 120px;
+  border: 1px solid #ccc; /* 🔄 기존 핑크 → 회색 */
+  border-radius: 0px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.preview-box img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	padding: 8px;
+	border: 1.25px solid #ccc;
+}
+

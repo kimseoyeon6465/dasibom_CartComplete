@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="JunggoVO"
+			type="com.booksajo.dasibom.vo.JunggoVO" />
+		<typeAlias alias="BookVO"
+			type="com.booksajo.dasibom.vo.BookVO" />
+		<typeAlias alias="UserVO"
+			type="com.booksajo.dasibom.vo.UserVO" />
+		<typeAlias alias="ReviewVO"
+			type="com.booksajo.dasibom.vo.ReviewVO" />
+		<typeAlias alias="PostsVO"
+			type="com.booksajo.dasibom.vo.PostsVO" />
+		<typeAlias alias="CommentVO"
+			type="com.booksajo.dasibom.vo.CommentVO" />
+		<typeAlias alias="UsedBookVO"
+			type="com.booksajo.dasibom.vo.UsedBookVO" />
+		<typeAlias alias="ReviewVO"
+			type="com.booksajo.dasibom.vo.ReviewVO" />
+		<typeAlias alias="ReviewCommentVO"
+			type="com.booksajo.dasibom.vo.ReviewCommentVO" />
+		<typeAlias alias="cartVO"
+			type="com.booksajo.dasibom.vo.CartVO" />
+		<typeAlias alias="wishlistVO"
+			type="com.booksajo.dasibom.vo.WishlistVO" />
+		<typeAlias alias="userVO"
+			type="com.booksajo.dasibom.vo.UserVO" />
+		<typeAlias alias="OrderDetailVO"
+			type="com.booksajo.dasibom.vo.OrderDetailVO" />
+		<typeAlias alias="UserOrderVO"
+			type="com.booksajo.dasibom.vo.UserOrderVO" />
+
+		<typeAlias alias="OrderRequestDTO"
+			type="com.booksajo.dasibom.dto.OrderRequestDTO" />
+		<typeAlias alias="PhotosVO"
+			type="com.booksajo.dasibom.vo.PhotosVO" />
+
+		<typeAlias alias="GoodsVO"
+			type="com.booksajo.dasibom.vo.GoodsVO" />
+	</typeAliases>
+
+</configuration>

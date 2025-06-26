@@ -1,0 +1,44 @@
+.payment-complete-page table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.payment-complete-page th, .payment-complete-page td {
+	border: 1px solid #ccc;
+	padding: 10px;
+	text-align: center;
+}
+
+.payment-complete-page img {
+	width: 80px;
+}
+
+.payment-complete-page .original-price {
+	text-decoration: line-through;
+	color: #888;
+	font-size: 14px;
+}
+
+.payment-complete-page .discounted-price {
+	color: #e60039;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+/* 공통 버튼 스타일 (해당 페이지 전용으로 제한) */
+.payment-complete-page button {
+	padding: 10px 20px;
+	font-size: 15px;
+	font-weight: bold;
+	background-color: #ffb300; /* 따뜻한 노란색 */
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.payment-complete-page button:hover {
+	background-color: #ffa000;
+}

@@ -1,0 +1,60 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 30px;
+}
+
+.order-form {
+	max-width: 600px;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+}
+
+.order-form h2 {
+	text-align: center;
+}
+
+.order-form label {
+	display: block;
+	margin-top: 15px;
+}
+
+.order-form input[type="text"], .order-form input[type="tel"],
+	.order-form input[type="email"], .order-form textarea {
+	width: 100%;
+	padding: 8px;
+	margin-top: 5px;
+}
+
+.order-form button {
+	width: 100%;
+	margin-top: 20px;
+	padding: 10px;
+	background-color: #ff99aa;
+	border: none;
+	color: white;
+	font-weight: bold;
+	border-radius: 5px;
+}
+
+.book-preview {
+	margin-top: 30px;
+}
+
+.book-row {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.book-row img {
+	width: 80px;
+}
+
+.book-info {
+	flex-grow: 1;
+}

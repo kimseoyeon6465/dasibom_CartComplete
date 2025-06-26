@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.booksajo.dasibom.service.dao.ReviewDAO">
+
+	
+<!-- ISBN으로 리뷰 조회 -->
+
+    <resultMap id="reviewResultMap" type="com.booksajo.dasibom.vo.ReviewVO">
+        <id property="review_Id" column="review_Id"/>
+        <result property="isbn" column="isbn"/>
+        <result property="user_Id" column="user_Id"/>
+        <result property="review_text" column="review_text"/>
+        <result property="review_score" column="review_score"/>
+        <result property="review_date" column="review_date"/>
+        <result property="image_path" column="image_path"/>
+        <result property="likes" column="likes"/>
+    </resultMap>
+
+	<!-- ISBN 별 리뷰 -->
+    <select id="getAllReviewByIsbn" resultMap="reviewResultMap">
+        SELECT * FROM review_table
+        WHERE isbn = #{isbn}
+        ORDER BY review_date DESC
+    </select>
+	
+	<insert id="insertReview" parameterType="com.booksajo.dasibom.vo.ReviewVO">
+        INSERT INTO review_table (
+            review_Id, isbn, user_Id, review_text, review_score
+        ) VALUES (
+            review_seq.nextval, #{isbn}, #{user_Id}, #{review_text}, #{review_score}
+        )
+    </insert>
+
+    <update id="updateReview" parameterType="ReviewVO">
+        UPDATE review_table
+        SET review_text = #{review_text}, review_score = #{review_score}
+        WHERE review_Id = #{review_Id} AND user_Id = #{user_Id}
+    </update>
+
+    <delete id="deleteReview" parameterType="ReviewVO">
+        DELETE FROM review_table
+        WHERE review_Id = #{review_Id} AND user_Id = #{user_Id}
+    </delete>
+
+    <update id="incrementLikes" parameterType="int">
+        UPDATE review_table
+        SET likes = likes + 1
+        WHERE review_Id = #{review_Id}
+    </update>
+    
+</mapper>

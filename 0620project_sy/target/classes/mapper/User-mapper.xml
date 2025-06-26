@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.booksajo.dasibom.service.dao.UserDAO">
+
+	<resultMap id="userResultMap"
+		type="com.booksajo.dasibom.vo.UserVO">
+		<result property="user_Seq" column="user_seq" />
+		<result property="user_Id" column="user_id" />
+		<result property="pw" column="pw" />
+		<result property="irum" column="irum" />
+		<result property="tel" column="tel" />
+		<result property="address" column="address" />
+		<result property="email" column="email" />
+		<result property="name" column="name" />
+		<result property="isAdmin" column="isadmin" />
+		<result property="point" column="point" />
+		<result property="profileImgPath" column="profile_img_path" />
+	</resultMap>
+
+	<!-- UserVO는 typeAlias 선언하여 풀 패키지명 적지 않음. 다른 mapper에선 그냥 풀패키지명까지 적어줄 것! -->
+
+	<!-- 연결 확인용 - test -->
+	<!-- <select id="testConnection" resultType="int"> -->
+	<!-- SELECT COUNT(*) FROM user_table -->
+	<!-- </select> -->
+
+	<!-- 사용자 추가 (일반회원) -->
+	<insert id="insertUser" parameterType="UserVO">
+		<selectKey keyProperty="user_Seq" resultType="int"
+			order="BEFORE">
+			SELECT user_seq_seq.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO user_table
+		(
+		user_seq,
+		user_id,
+		pw,
+		irum,
+		tel,
+		address,
+		email,
+		name,
+		isAdmin
+		)
+		VALUES
+		(
+		#{user_Seq},
+		#{user_Id},
+		#{pw},
+		#{irum},
+		#{tel},
+		#{address},
+		#{email},
+		#{name},
+		0
+		)
+	</insert>
+
+	<!-- id로 사용자 조회 -->
+	<select id="findUserById" parameterType="String"
+		resultType="com.booksajo.dasibom.vo.UserVO">
+		SELECT *
+		FROM user_table
+		WHERE user_id = #{user_Id}
+	</select>
+
+	<!-- name로 사용자 조회 -->
+	<select id="findUserByName" parameterType="String"
+		resultType="com.booksajo.dasibom.vo.UserVO">
+		SELECT *
+		FROM user_table
+		WHERE name = #{name}
+	</select>
+
+	<!-- user_seq로 사용자 조회 -->
+	<select id="findUserBySeq" parameterType="int"
+		resultType="com.booksajo.dasibom.vo.UserVO">
+		SELECT *
+		FROM user_table
+		WHERE user_seq = #{user_Seq}
+	</select>
+
+	<!-- 로그인용 select -->
+	<select id="loginUser" parameterType="map"
+		resultMap="userResultMap">
+		SELECT *
+		FROM user_table
+		WHERE user_id = #{user_Id}
+		AND pw = #{pw}
+	</select>
+
+
+	<!-- Field 별 정보 UPDATE -->
+	<update id="updateUserField">
+		UPDATE user_table
+		<set>
+			<if test="field == 'irum'"> irum = #{value}, </if>
+			<if test="field == 'email'"> email = #{value}, </if>
+			<if test="field == 'address'"> address = #{value}, </if>
+			<if test="field == 'name'"> name = #{value}, </if>
+			<if test="field == 'tel'"> tel = #{value}, </if>
+		</set>
+		WHERE user_seq = #{user_Seq}
+	</update>
+
+	<!-- Field: password UPDATE -->
+	<update id="updatePassword">
+		UPDATE user_table
+		SET pw = #{newPassword}
+		WHERE
+		user_seq = #{user_Seq}
+	</update>
+
+	<select id="selectUserById" parameterType="String"
+		resultType="com.booksajo.dasibom.vo.UserVO">
+		SELECT user_id, irum, address, tel, point
+		FROM user_table
+		WHERE user_id = #{userId, jdbcType=VARCHAR}
+	</select>
+
+	<select id="getUserById" parameterType="String"
+		resultMap="userResultMap">
+		SELECT * FROM user_table WHERE user_id = #{userId,
+		jdbcType=VARCHAR}
+	</select>
+
+	<update id="updateUserPoint">
+		UPDATE user_table
+		SET point = point + #{diff}
+		WHERE user_id = #{userId, jdbcType=VARCHAR}
+	</update>
+
+</mapper>

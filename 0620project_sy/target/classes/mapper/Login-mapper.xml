@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.booksajo.dasibom.service.dao.LoginDAO">
+<resultMap id="userResultMap" type="com.booksajo.dasibom.vo.UserVO">
+	<result property="user_Seq" column="user_seq"/>
+	<result property="user_Id" column="user_id"/>
+	<result property="pw" column="pw"/>
+	<result property="irum" column="irum"/>
+	<result property="tel" column="tel"/>
+	<result property="address" column="address"/>
+	<result property="email" column="email"/>
+	<result property="name" column="name"/>
+	<result property="isAdmin" column="isadmin"/>
+	<result property="point" column="point"/>
+	<result property="profileImgPath" column="profile_img_path"/>
+</resultMap>
+
+
+	<!-- UserVO는 typeAlias 선언하여 풀 패키지명 적지 않음. 다른 mapper에선 그냥 풀패키지명까지 적어줄 것! -->
+
+	<!-- 연결 확인용 - test -->
+	<!-- <select id="testConnection" resultType="int"> -->
+	<!-- SELECT COUNT(*) FROM user_table -->
+	<!-- </select> -->
+
+	<!-- 로그인용 select -->
+	<select id="loginUser" parameterType="map"
+		resultMap="userResultMap">
+		SELECT *
+		FROM user_table
+		WHERE user_id = #{user_Id}
+		AND pw = #{pw}
+	</select>
+
+
+</mapper>

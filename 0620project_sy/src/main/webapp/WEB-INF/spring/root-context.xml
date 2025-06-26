@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:tx="http://www.springframework.org/schema/tx"
+   xsi:schemaLocation="
+      http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+   <!-- Root Context: defines shared resources visible to all other web components -->
+
+   <!-- ✅ DB 연결 -->
+   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+      <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
+      <property name="username" value="HR" />
+      <property name="password" value="HR" />
+      
+     <!--  <property name="username" value="hr" />
+      <property name="password" value="hr" /> -->
+   </bean>
+
+   <!-- ✅ SqlSessionFactory: mapper 전체 경로 + type alias 경로 추가 -->
+   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource" />
+      <property name="configLocation" value="classpath:/mybatis-config.xml" />
+      <property name="mapperLocations" value="classpath:/mapper/*.xml" />
+      <property name="typeAliasesPackage" value="com.booksajo.dasibom.vo" />
+   </bean>
+
+   <!-- ✅ SqlSessionTemplate -->
+   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+      <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+   </bean>
+
+   <!-- ✅ DAO 자동 스캔 -->
+   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+      <property name="basePackage" value="com.booksajo.dasibom.service.dao" />
+   </bean>
+
+   <!-- ✅ 트랜잭션 설정 -->
+   <bean id="transactionManager"
+         class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+      <property name="dataSource" ref="dataSource" />
+   </bean>
+
+   <!-- ✅ 파일 업로드 설정 -->
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+      <property name="maxUploadSize" value="5242880"/> <!-- 5MB -->
+   </bean>
+
+   <!-- ✅ 트랜잭션 어노테이션 활성화 -->
+   <tx:annotation-driven transaction-manager="transactionManager" />
+</beans>

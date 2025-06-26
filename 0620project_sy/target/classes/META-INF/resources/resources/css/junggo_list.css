@@ -1,0 +1,177 @@
+/* 기본 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 페이지 전체 배경 */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* 중고 도서 목록 */
+.list {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;        /* 가로 스크롤 활성화 */
+  white-space: nowrap;     /* 요소 줄바꿈 방지 */
+  padding: 10px;
+  gap: 20px;                /* 요소 간 간격 */
+  scroll-snap-type: x mandatory; /* 스크롤 정렬 기능 (옵션) */
+}
+
+.container {
+  flex: 0 0 auto;           /* 요소가 줄바꿈되지 않도록 고정 너비 설정 */
+  width: 250px;             /* 카드 하나의 고정 너비 */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  scroll-snap-align: start; /* 정렬 기준 (옵션) */
+  background-color: #fff;
+  text-decoration: none;
+  color: inherit;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.bookimage img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 2px solid #FF77AA;
+}
+
+.info {
+    padding: 15px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 16px;
+    color: #FF77AA;
+    margin-bottom: 10px;
+}
+
+.status {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    color: #777;
+}
+
+.writer {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+}
+
+/* 버튼: 글쓰기 */
+.write-form {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.write-form input[type="submit"] {
+    background-color: #FF77AA;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.write-form input[type="submit"]:hover {
+    background-color: #ff66a1;
+}
+
+/* 페이지네이션 */
+.pagination-search-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;        /* 중앙 정렬로 변경 */
+    align-items: center;
+    gap: 20px;
+    padding: 15px 10px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    gap: 5px;
+}
+
+.pagination button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background-color: #eee;
+    cursor: not-allowed;
+}
+
+.pagination form {
+    display: flex;
+    gap: 5px;
+}
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #ff66a1;
+}
+
+/* 검색 폼 */
+.search-box {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-box label {
+    margin-right: 5px;
+}
+
+.search-box select,
+
+.search-box input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.search-box input[type="submit"] {
+    background-color: #FF77AA;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-box input[type="submit"]:hover {
+    background-color: #ff66a1;
+}

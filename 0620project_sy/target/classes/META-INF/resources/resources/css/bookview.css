@@ -1,0 +1,397 @@
+
+	
+	
+	
+	/* ������������������������������������������
+	   [1] 湲곕낯 �젅�씠�븘�썐
+	������������������������������������������ */
+	.wrapper {
+	  display: flex;
+	  justify-content: center;
+	  background-color: #fff;
+	  min-width: 1000px; /* 理쒖냼 �꼫鍮� 怨좎젙 */
+	  overflow-x: hidden;
+	}	
+	
+	
+	/* .wrap�쓽 理쒕��꼫鍮꾨쭔 �벐怨�, �꼫鍮꾨�� 怨좎젙  */
+		.wrap {
+	  width: 1000px;        /* 怨좎젙 �꼫鍮� 吏��젙 */
+	  max-width: 1000px;
+	  min-width: 1000px;
+	  margin: 0 auto;
+	  overflow-x: hidden;   /* �븘�슂�떆 �뒪�겕濡� 留됱쓬 */
+	}
+
+	body {
+	  overflow-x: hidden;
+	}
+	
+
+
+	/* ������������������������������������������
+	   [2] �룄�꽌 �젙蹂� �젅�씠�븘�썐
+	������������������������������������������ */
+	
+	.content_top {
+	  display: flex;
+	  align-items: flex-start;
+	  gap: 40px;
+	  margin-bottom: 40px;
+	  padding-left: 80px;
+	   margin-top: 80px; /* header�� 梨� �궗�씠�쓽 媛꾧꺽 �썝�븯�뒗 留뚰겮 �닽�옄 議곗젅 */
+	}
+	
+	.content_img {
+	  width: 350px;
+	  height: auto;
+	  object-fit: contain;
+	}
+	
+	.ct_right_area {
+	  flex: 1;
+	  max-width: 650px;
+	  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+	  font-size: 1.1em;
+	}
+	
+	.ct_right_area h1 {
+	  font-size: 2.2em;
+	  margin-bottom: 10px;
+	}
+	
+	.ct_right_area h3 {
+	  font-size: 1.4em;
+	  margin-bottom: 15px;
+	}
+	
+	.ct_right_area p {
+	  font-size: 1.1em;
+	  margin-bottom: 8px;
+	}
+	
+	/* ������������������������������
+	   �룊�젏 �뒪���씪
+	�������������������������������� */
+	
+	.average-rating {
+	  font-size: 0.85em;
+	  color: #f8b4b4; /* 踰꾪듉怨� �룞�씪�븳 遺꾪솉�깋 */
+	  margin-left: 4px;
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 2px; /* �씠誘몄��� �닽�옄 �궗�씠 �뿬諛� 理쒖냼�솕 */
+	}
+	
+	.rating-flower-icon {
+	  height: 22px;   /*  �씠誘몄� �겕湲� �궎�� */
+	  width: auto;
+	  margin: 0;
+	  padding: 0;
+	  transform: translateY(1px); /* �빟媛� �궡�젮�꽌 �젙�젹 蹂댁젙 */
+	}
+
+
+	
+	
+	/* 以꾧굅由� 遺�遺� 湲��뵪 �겕湲� �닔�젙 */
+	
+	.book-summary {
+	  font-size: 1.2em; /* �쟾泥� 湲��옄 �겕湲� �궎�� */
+	  line-height: 1.6; /* 以� 媛꾧꺽�룄 �궡吏� �꼮�꼮�븯寃� */
+	  font-family: 'Apple SD Gothic Neo', '留묒� 怨좊뵓', sans-serif;
+	}
+		
+	/*<h1>怨� <h2>, <p> 媛곴컖 �뵲濡� 議곗젙�븯怨� �떢�쑝硫�  */
+		.book-summary h1 {
+		  font-size: 2em;
+		  margin-bottom: 10px;
+		}
+		
+		.book-summary h2 {
+		  font-size: 1.5em;
+		  margin-bottom: 10px;
+		}
+		
+		.book-summary p {
+		  font-size: 1.2em;
+		}
+	
+	/* ������������������������������������������
+	   [3] 二쇰Ц �닔�웾
+	������������������������������������������ */
+	.button_quantity {
+	  display: flex;
+	  align-items: center;
+	  gap: 5px;
+	  margin: 10px 0;
+	}
+	
+	.button_quantity input[type="number"] {
+	  width: 50px;
+	  height: 38px;
+	  font-size: 1.1em;
+	  padding: 5px 8px;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  text-align: center;
+	  box-sizing: border-box;
+	  appearance: none;
+	}
+	
+	.button_quantity input::-webkit-outer-spin-button,
+	.button_quantity input::-webkit-inner-spin-button {
+	  -webkit-appearance: none;
+	  margin: 0;
+	}
+	
+	.quantity_controls {
+	  display: flex;
+	  flex-direction: column;
+	  height: 38px;
+	  justify-content: space-between;
+	  gap: 1px;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  overflow: hidden;
+	}
+	
+	.quantity_controls button {
+	  background-color: #f8b4b4;
+	  border: none;
+	  padding: 0;
+	  cursor: pointer;
+	  font-size: 12px;
+	  width: 30px;
+	  height: 19px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+	
+	.quantity_controls button:hover {
+	  background-color: #e0e0e0;
+	}
+	
+	/* ������������������������������������������
+	   [4] �옣諛붽뎄�땲/諛붾줈援щℓ/李� 踰꾪듉
+	������������������������������������������ */
+	.btn_cart, .btn_buy, .btn_wish {
+	  background-color: #f8b4b4;
+	  padding: 12px 20px;
+	  border-radius: 5px;
+	  border: none; /* 寃��젙 �뀒�몢由� �젣嫄� */
+	  color: white;
+	  text-decoration: none;
+	  font-size: 1.1em;
+	  font-weight: bold;
+	  vertical-align: middle;
+	}
+	
+	.btn_buy {
+		background-color: #e26a8b;
+	}
+	
+	/* �븯�듃 踰꾪듉留� �뵲濡� �겕湲� 議곗젅�븯怨� �떢�쓣 寃쎌슦 */
+	.btn_wish {
+	  color: red;
+	  padding: 12px 20px;  /* �옣諛붽뎄�땲/諛붾줈援щℓ�� �룞�씪�븯寃� */
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+	
+	/* ������������������������������������������
+	   [5] 由щ럭 �옉�꽦 �뤌
+	������������������������������������������ */
+	.review-write-box {
+	  max-width: 600px;
+	  margin: 20px auto;
+	  padding: 20px;
+	  border: 1px solid #FFC0CB;
+	  border-radius: 8px;
+	  background-color: #fffafb;
+	}
+	
+	.review-write-box h3 {
+	  font-size: 18px;
+	  font-weight: bold;
+	  margin-bottom: 15px;
+	  text-align: center;
+	}
+	
+	.flower-rating-input {
+	  display: flex;
+	  justify-content: center;
+	  margin-bottom: 15px;
+	  gap: 5px;
+	}
+	
+	.flower-rating-input img {
+	  width: 100px;
+	  height: 80px;
+	  cursor: pointer;
+	  transition: transform 0.2s;
+	}
+	
+	.flower-rating-input img:hover {
+	  transform: scale(1.1);
+	}
+	
+	.review-textarea-wrapper {
+	  display: flex;
+	  gap: 10px;
+	  align-items: stretch;  /* 踰꾪듉怨� �뀓�뒪�듃 �넂�씠 留욎텛湲� */
+
+	}
+	
+	.review-textarea-wrapper textarea {
+	  flex-grow: 1;
+	  height: 80px;
+	  padding: 10px;
+	  font-size: 14px;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  resize: none;               /* �겕湲� 議곗젅 鍮꾪솢�꽦�솕 */
+	  box-sizing: border-box;
+	}
+	
+	.review-textarea-wrapper .cherry-blossom-button {
+	  width: 100px;               /* �썝�븯�뒗 �꼫鍮� */
+	  height: 80px;               /* �넂�씠 �뀓�뒪�듃�뿉 留욎땄 */
+	  background-color: #f48fb1;
+	  color: white;
+	  border: none;
+	  border-radius: 8px;
+	  font-weight: bold;
+	  cursor: pointer;
+	}
+	
+	/* ������������������������������������������
+	   [6] 由щ럭 紐⑸줉
+	������������������������������������������ */
+	.review-box {
+	  border-top: 1px solid #ddd;
+	  padding: 20px 0;
+	  max-width: 600px;
+	  margin: 0 auto 20px auto;
+	  font-family: 'Apple SD Gothic Neo', '留묒� 怨좊뵓', sans-serif;
+	  box-sizing: border-box;
+	}
+	
+	.flower-display {
+	  display: flex;
+	  align-items: center;
+	  gap: 4px;
+	  margin-bottom: 8px;
+	}
+	
+	.flower-display img {
+	  width: 100px;
+	  height: 80px;
+	}
+	
+	.review-text-display {
+	  margin-bottom: 8px;
+	}
+	
+	.review-meta {
+	  font-size: 13px;
+	  color: #666;
+	  margin-bottom: 10px;
+	}
+	
+	.review-date-display {
+	  margin-left: 10px;
+	}
+	
+	.review-image {
+	  margin-top: 10px;
+	  margin-bottom: 10px;
+	}
+	
+	.review-image img {
+	  max-width: 100%;
+	  height: auto;
+	  display: block;
+	  border: 1px solid #eee;
+	  border-radius: 4px;
+	}
+	
+	.review-actions {
+	  margin-top: 15px;
+	  display: flex;
+	  gap: 10px;
+	  align-items: center;
+	}
+	
+	.review-actions button {
+	  background-color: #f0f0f0;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  padding: 5px 10px;
+	  cursor: pointer;
+	  font-size: 13px;
+	}
+	
+	.review-actions button:hover {
+	  background-color: #e0e0e0;
+	}
+	
+	/* ������������������������������������������
+	   [7] 踰싰퐙 踰꾪듉 諛� �븯�떒 �꽕鍮�
+	������������������������������������������ */
+	.cherry-blossom-button {
+	  background-color: #FFC0CB;
+	  color: white;
+	  border: none;
+	  padding: 8px 15px;
+	  cursor: pointer;
+	  border-radius: 5px;
+	  font-weight: bold;
+	}
+	
+	.footer_nav {
+	  background-color: #f9f9f9;
+	  padding: 15px 0;
+	  font-size: 14px;
+	  color: #666;
+	}
+	
+	.footer_nav_container {
+	  max-width: 1200px;
+	  margin: 0 auto;
+	  text-align: center;
+	}
+	
+	.footer_nav_container ul {
+	  list-style: none;
+	  padding: 0;
+	  margin: 0;
+	  display: inline-flex;
+	  gap: 12px;
+	}
+	
+	.footer_nav_container li {
+	  position: relative;
+	  padding: 0 8px;
+	}
+	
+	.footer_nav_container li:not(:last-child)::after {
+	  content: '|';
+	  color: #ccc;
+	  position: absolute;
+	  right: -6px;
+	}
+	
+	/* ������������������������������������������
+	   [8] 濡쒓렇�씤 紐⑤떖李�
+	������������������������������������������ */
+		
+	
+/* �븷�씤媛�寃�  */	
+	.discount-highlight {
+    color: #d23a64; /* 濡쒓퀬 遺꾪솉 怨꾩뿴 �깋�긽 */
+    font-weight: bold;
+}
+	

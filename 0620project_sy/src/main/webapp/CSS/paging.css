@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+/* 전체 페이징 컨테이너 */
+.paging-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 30px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 이전/다음 버튼 스타일 */
+.paging-prevnext {
+  padding: 6px 14px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  color: #333;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+.paging-prevnext:hover {
+  background-color: #eaeaea;
+}
+
+/* 숫자 버튼 */
+.paging-button {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #333;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+.paging-button:hover {
+  background-color: #f1f1f1;
+}
+
+/* 현재 페이지 강조 */
+.paging-current {
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: #ff7a7a;
+  color: white;
+  font-weight: bold;
+  border: 1px solid #ff5a5a;
+}

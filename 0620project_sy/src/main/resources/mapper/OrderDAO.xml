@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.booksajo.dasibom.service.dao.OrderDAO">
+
+	<!-- 회원 주문 등록 -->
+	<insert id="insertUserOrder"
+		parameterType="com.booksajo.dasibom.vo.UserOrderVO">
+		<selectKey keyProperty="orderId" resultType="int"
+			order="BEFORE">
+			SELECT user_order_seq.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO user_order_table (
+		order_id, order_date, user_id,
+		sum_price, receiver,
+		tel, address, request
+		) VALUES (
+		#{orderId},
+		SYSDATE, #{userId, jdbcType=VARCHAR},
+		#{sumPrice}, #{receiver},
+		#{tel},
+		#{address},
+		#{request}
+		)
+	</insert>
+
+
+
+	<insert id="insertOrderDetail"
+		parameterType="com.booksajo.dasibom.vo.OrderDetailVO">
+		INSERT INTO user_order_detail_table (
+		order_id, isbn,
+		count, price, order_status
+		) VALUES (
+		#{orderId}, #{isbn}, #{count},
+		#{price}, #{orderStatus}
+		)
+	</insert>
+	<!-- 특정 주문의 상세 목록 조회 -->
+	<select id="getUserOrderDetails" parameterType="int"
+		resultType="com.booksajo.dasibom.vo.OrderDetailVO">
+		SELECT
+		od.order_id,
+		od.isbn,
+		od.count,
+		od.price,
+		od.order_status,
+		b.title,
+		b.image_path AS imagePath
+		FROM
+		user_order_detail_table od
+		JOIN book_table b ON od.isbn = b.isbn
+		WHERE
+		od.order_id = #{orderId}
+	</select>
+
+
+
+
+
+
+	<select id="getUserOrder" parameterType="int"
+		resultType="com.booksajo.dasibom.vo.UserOrderVO">
+		SELECT * FROM user_order_table
+		WHERE order_id = #{orderId}
+	</select>
+
+	<select id="getUserOrderSeqNextVal" resultType="int">
+		SELECT
+		USER_ORDER_SEQ.NEXTVAL FROM DUAL
+	</select>
+
+	<select id="selectOrdersByUserId" parameterType="String"
+		resultType="com.booksajo.dasibom.vo.UserOrderVO">
+		SELECT order_id, order_date, sum_price, receiver,
+		address,
+		tel, request,
+		user_id
+		FROM user_order_table
+		WHERE user_id =
+		#{userId,
+		jdbcType=VARCHAR}
+		ORDER BY order_date DESC
+	</select>
+
+
+
+	<select id="selectOrderDetailsByOrderId" parameterType="int"
+		resultType="com.booksajo.dasibom.vo.OrderDetailVO">
+		SELECT
+		d.order_id,
+		d.isbn,
+		d.count,
+		d.price,
+		d.order_status,
+		d.refund_count,     <!-- ✅ 이 라인 추가 -->
+		b.image_path AS imagePath,
+		b.title
+		FROM user_order_detail_table d
+		JOIN
+		book_table b
+		ON
+		d.isbn = b.isbn
+		WHERE d.order_id = #{orderId}
+	</select>
+
+	<update id="updateOrderStatus">
+		UPDATE user_order_detail_table
+		SET order_status =
+		#{orderStatus}
+		WHERE order_id = #{orderId}
+		AND isbn = #{isbn}
+	</update>
+
+	<update id="increaseSales" parameterType="map">
+		UPDATE book_table
+		SET
+		sales = sales + #{count}
+		WHERE isbn = #{isbn}
+	</update>
+
+<insert id="insertGoodsOrderDetail"
+        parameterType="com.booksajo.dasibom.vo.OrderDetailVO">
+    INSERT INTO user_goods_order_detail_table (
+        order_id,
+        goods_id,
+        count,
+        price,
+        order_status
+    ) VALUES (
+        #{orderId},
+        #{goodsId},
+        #{count},
+        #{price},
+        #{orderStatus}
+    )
+</insert>
+
+<select id="getUserGoodsOrderDetails" parameterType="int"
+        resultType="com.booksajo.dasibom.vo.OrderDetailVO">
+    SELECT
+        g.order_id,
+        g.goods_id AS goodsId,
+        g.count,
+        g.price,
+        g.order_status,
+        d.goods_name AS title,
+        d.image_path AS imagePath
+    FROM user_goods_order_detail_table g
+    JOIN goods_table d ON g.goods_id = d.goods_id
+    WHERE g.order_id = #{orderId}
+</select>
+
+<select id="selectGoodsOrderDetailsByOrderId" parameterType="int"
+        resultType="com.booksajo.dasibom.vo.OrderDetailVO">
+    SELECT
+        g.order_id,
+        g.goods_id AS goodsId,
+        g.count,
+        g.price,
+        g.order_status,
+        d.goods_name AS title,
+        d.image_path AS imagePath
+    FROM user_goods_order_detail_table g
+    JOIN goods_table d ON g.goods_id = d.goods_id
+    WHERE g.order_id = #{orderId}
+</select>
+
+
+</mapper>

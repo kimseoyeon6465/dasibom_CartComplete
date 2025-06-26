@@ -1,0 +1,144 @@
+@charset "UTF-8";
+
+:root {
+	--main-color: #ff77aa; /* 메인 컬러 */
+}
+
+body {
+	font-family: 'Paperlogy', sans-serif;
+	background-color: #f4f6f8;
+	margin: 0;
+	padding: 0;
+}
+
+/* 
+	정보 기입란 style
+ */
+#signupForm {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    margin: 10vh auto;
+    padding: 5vh 0;
+    background: #fff;
+    color: black;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#signupForm h2 {
+	text-align: center;
+	color: #2c3e50;
+	font-weight: 400;
+}
+
+.signup-input {
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 2.5rem;
+}
+
+.input-line-signup {
+    display: flex;
+    /*flex-direction: column;*/
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.input-line-signup label {
+    width: 80px;
+    text-align: center;
+    font-weight: 200;
+    font-size: small;
+    color: black;
+    margin-right: 10px;
+}
+
+.input-line-signup input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input-line-signup input::placeholder {
+	color: #abb4bd;
+}
+
+#tel1,
+#tel2,
+#tel3 {
+    width: 10%;
+}
+
+/* 
+	이용 약관 동의 부분 style
+ */
+ 
+ .chk-all {
+    width: 80%;
+    border: 2px solid #FF9BA4;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #ffedeb;
+    font-weight: bold;
+    margin: 1.0rem;
+}
+
+.chk-all span {
+    font-size: 1.1rem;
+}
+
+.required {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    min-width: 130px;
+    text-align: center;
+}
+
+.required:hover {
+    background-color: #0056b3;
+}
+
+.chk-list {
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #fafafa;
+    list-style: none;
+    margin: 1.0rem;
+}
+
+.list .item,
+.list .item-inner {
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+    list-style-type: none;
+    align-items: flex-start;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.list .item:last-child,
+.list .item-inner:last-child {
+    border-bottom: none;
+}
+
+
+
+
+

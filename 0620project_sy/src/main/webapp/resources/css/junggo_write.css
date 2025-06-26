@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+/*junggo_write부분*/
+h2{
+	text-align: center;
+}
+
+.input-text {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+}
+
+.input-number {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+}
+
+.btn-upload {
+    display: inline-block;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+.preview-container img {
+    width: 100px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.btn-submit, .btn-reset {
+    margin: 10px 5px;
+    padding: 10px 15px;
+}
